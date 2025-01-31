@@ -59,9 +59,9 @@ namespace HttPete.Web.API.LocalDB
             modelBuilder.Entity<Endpoint>().HasData(new Endpoint
             {
                 Id = 1,
-                Url = Constants.DEFAULT_ENDPOINT_URL,
-                Headers = Constants.DEFAULT_ENDPOINT_HEADERS,
-                Body = Constants.DEFAULT_ENDPOINT_BODY,
+                Url = Defaults.DEFAULT_ENDPOINT_URL,
+                Headers = Defaults.DEFAULT_ENDPOINT_HEADERS,
+                Body = Defaults.DEFAULT_ENDPOINT_BODY,
                 CollectionId = 1,
                 OrganizationId = 1,
                 WorkspaceId = 1,
@@ -74,7 +74,7 @@ namespace HttPete.Web.API.LocalDB
                 {
                     Id = 1,
                     Title = "README <3",
-                    Text = Constants.DEFAULT_DOCUMENT_TEXT,
+                    Text = Defaults.DEFAULT_DOCUMENT_TEXT,
                 }
             );
         }

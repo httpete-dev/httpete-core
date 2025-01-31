@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.CLI", "HttPete.CLI\HttPete.CLI.csproj", "{9B7F9EB1-B083-483A-831B-84431E509504}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Local.Web.API", "Ht
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Services", "HttPete.Services\HttPete.Services.csproj", "{B95CEE09-77C9-4D31-A44E-15C04436F642}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Local.Model", "HttPete.Local.Model\HttPete.Local.Model.csproj", "{3542522A-89FD-410F-A3E3-AB5A05CA3861}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Model", "HttPete.Model\HttPete.Model.csproj", "{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{B95CEE09-77C9-4D31-A44E-15C04436F642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B95CEE09-77C9-4D31-A44E-15C04436F642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B95CEE09-77C9-4D31-A44E-15C04436F642}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3542522A-89FD-410F-A3E3-AB5A05CA3861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3542522A-89FD-410F-A3E3-AB5A05CA3861}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3542522A-89FD-410F-A3E3-AB5A05CA3861}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3542522A-89FD-410F-A3E3-AB5A05CA3861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

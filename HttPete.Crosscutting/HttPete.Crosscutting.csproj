@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SAK25" Version="1.0.10" />
+    <PackageReference Include="SAK25" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>

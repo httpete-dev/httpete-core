@@ -17,10 +17,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="HTTPETE-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="..\HTTPETE-icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="HTTPETE-icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
@@ -31,6 +40,7 @@
 
   <ItemGroup>
     <PackageReference Include="Abp" Version="10.0.0" />
+    <PackageReference Include="SAK25" Version="1.1.2" />
   </ItemGroup>
 
 </Project>
