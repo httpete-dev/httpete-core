@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HttPete.Local.Model\HttPete.Local.Model.csproj" />
+    <ProjectReference Include="..\HttPete.Model\HttPete.Model.csproj" />
   </ItemGroup>
 
 </Project>

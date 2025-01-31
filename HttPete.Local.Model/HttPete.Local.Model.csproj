@@ -12,4 +12,8 @@
     <PackageReference Include="SAK25" Version="1.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>
