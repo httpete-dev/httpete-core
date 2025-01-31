@@ -1,0 +1,38 @@
+name: Publish to NuGet
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    name: Build, Pack & Publish
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for GitVersion
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+          
+      - name: Restore dependencies
+        run: dotnet restore
+        
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+        
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+        
+      - name: Pack
+        run: dotnet pack httpete-model/httpete-model.csproj --configuration Release --no-build --output nupkgs
+        
+      - name: Push to NuGet
+        run: dotnet nuget push "./nupkgs/*.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_KEY }} --skip-duplicate
