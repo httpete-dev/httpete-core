@@ -1,0 +1,6 @@
+@HttPete.Web.API_HostAddress = http://localhost:5073
+
+GET {{HttPete.Web.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
