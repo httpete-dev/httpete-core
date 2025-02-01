@@ -1,8 +1,7 @@
 ﻿using HttPete.Model.Tenants;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using HttPete.Services.Network;
-using HttPete.Web.API.LocalDB;
+using HttPete.Services;
 
 namespace HttPete.Web.API.Controllers
 {
@@ -10,11 +9,11 @@ namespace HttPete.Web.API.Controllers
     [ApiController]
     public class BaseUrlsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IBaseUrlService _baseUrlService;
 
-        public BaseUrlsController(AppDbContext context)
+        public BaseUrlsController(IBaseUrlService baseUrlService)
         {
-            _context = context;
+            _baseUrlService = baseUrlService;
         }
 
         [HttpGet]
@@ -23,7 +22,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var baseUrls = await _context.BaseUrls.Where(x => x.WorkspaceId == workspaceId).ToArrayAsync(cancellationToken);
+                var baseUrls = await _baseUrlService.GetBaseUrlsForWorkspaceAsync(workspaceId, cancellationToken);
                 return new HttPeteResponse(baseUrls, 200, "Successfully retrieved base urls.");
             }
             catch (Exception e)
@@ -38,9 +37,8 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                await _context.BaseUrls.AddAsync(baseUrl, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(baseUrl, 200, $"Successfully added base url: {baseUrl.Value}.");
+                var added = await _baseUrlService.AddBaseUrlAsync(baseUrl, cancellationToken);
+                return new HttPeteResponse(added, 200, $"Successfully added base url: {added.Value}.");
             }
             catch (Exception e)
             {
@@ -54,9 +52,8 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                _context.BaseUrls.Update(baseUrl);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(baseUrl, 200, "");
+                var updated = await _baseUrlService.UpdateBaseUrlAsync(baseUrl, cancellationToken);
+                return new HttPeteResponse(updated, 200, "Successfully updated base url.");
             }
             catch (Exception e)
             {
@@ -70,10 +67,8 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var baseUrl = await _context.BaseUrls.FindAsync(id);
-                _context.BaseUrls.Remove(baseUrl);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(baseUrl, 200, "");
+                var deleted = await _baseUrlService.DeleteBaseUrlAsync(id, cancellationToken);
+                return new HttPeteResponse(deleted, 200, "Successfully deleted base url.");
             }
             catch (Exception e)
             {

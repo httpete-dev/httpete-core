@@ -1,8 +1,6 @@
-
-using Microsoft.EntityFrameworkCore;
-using HttPete.Services.Config;
-using HttPete.Services.IO;
-using HttPete.Web.API.LocalDB;
+using HttPete.Infrastructure;
+using HttPete.Infrastructure.Persistence.SQLite;
+using HttPete.Services;
 
 namespace HttPete.Web.API
 {
@@ -16,12 +14,13 @@ namespace HttPete.Web.API
 
             builder.Services.AddControllers();
 
+            RegisterHttPeteInfrastructure(builder);
+            RegisterHttPeteServices(builder);
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Data Source={HttPeteSettings.CONFIG_PATH}/HttPete-local.db"));
 
-            builder.Services.AddTransient<IFileService, FileService>();
 
             builder.Services.AddCors(options =>
             {
@@ -57,6 +56,28 @@ namespace HttPete.Web.API
             app.MapControllers();
 
             app.Run();
+        }
+
+        private static void RegisterHttPeteServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddHttPeteServices();
+        }
+
+        private static void RegisterHttPeteInfrastructure(WebApplicationBuilder builder)
+        {
+            var database = builder.Configuration["DatabaseType"];
+            if (database == "SQLite")
+            {
+                builder.Services.AddSQLiteRepositories();
+            }
+            else if (database == "PostgreSQL")
+            {
+                throw new Exception($"PostgreSQL is coming soon my friend.");
+            }
+            else
+            {
+                throw new Exception($"Database {database} not supported yet.");
+            }
         }
     }
 }

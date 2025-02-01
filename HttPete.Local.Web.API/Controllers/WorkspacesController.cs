@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HttPete.Services.Network;
-using HttPete.Web.API.LocalDB;
 using Workspace = HttPete.Model.Tenants.Workspace;
+using HttPete.Services;
 
 namespace HttPete.Web.API.Controllers
 {
@@ -9,11 +9,11 @@ namespace HttPete.Web.API.Controllers
     [ApiController]
     public class WorkspacesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IWorkspaceService _workspaceService;
 
-        public WorkspacesController(AppDbContext context)
+        public WorkspacesController(IWorkspaceService workspaceService)
         {
-            _context = context;
+            _workspaceService = workspaceService;
         }
 
         [HttpGet]
@@ -22,9 +22,12 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var workspace = await _context.Workspaces.FindAsync(id);
-
-                return new HttPeteResponse(workspace, 200, "");
+                var workspace = await _workspaceService.GetWorkspaceAsync(id, cancellationToken);
+                return new HttPeteResponse(workspace, 200, "Successfully retrieved workspace.");
+            }
+            catch (KeyNotFoundException e)
+            {
+                return new HttPeteResponse(null, 404, e.Message);
             }
             catch (Exception e)
             {
@@ -38,9 +41,8 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                await _context.Workspaces.AddAsync(workspace, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(workspace, 200, "");
+                var added = await _workspaceService.AddWorkspaceAsync(workspace, cancellationToken);
+                return new HttPeteResponse(added, 200, "Successfully added workspace.");
             }
             catch (Exception e)
             {
@@ -54,9 +56,12 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                _context.Workspaces.Update(workspace);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(workspace, 200, "");
+                var updated = await _workspaceService.UpdateWorkspaceAsync(workspace, cancellationToken);
+                return new HttPeteResponse(updated, 200, "Successfully updated workspace.");
+            }
+            catch (KeyNotFoundException e)
+            {
+                return new HttPeteResponse(null, 404, e.Message);
             }
             catch (Exception e)
             {
@@ -70,10 +75,12 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var workspace = await _context.Workspaces.FindAsync(id);
-                _context.Workspaces.Remove(workspace);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(workspace, 200, "");
+                var deleted = await _workspaceService.DeleteWorkspaceAsync(id, cancellationToken);
+                return new HttPeteResponse(deleted, 200, "Successfully deleted workspace.");
+            }
+            catch (KeyNotFoundException e)
+            {
+                return new HttPeteResponse(null, 404, e.Message);
             }
             catch (Exception e)
             {

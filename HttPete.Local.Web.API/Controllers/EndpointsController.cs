@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using HttPete.Services.Network;
-using HttPete.Web.API.LocalDB;
 using Endpoint = HttPete.Model.Tenants.Endpoint;
+using HttPete.Services;
 
 namespace HttPete.Web.API.Controllers
 {
@@ -10,11 +9,11 @@ namespace HttPete.Web.API.Controllers
     [ApiController]
     public class EndpointsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IEndpointService _endpointService;
 
-        public EndpointsController(AppDbContext context)
+        public EndpointsController(IEndpointService endpointService)
         {
-            _context = context;
+            _endpointService = endpointService;
         }
 
         [HttpGet]
@@ -23,20 +22,11 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                Endpoint[] endpoints = null;
-
                 if (workspaceId == null && collectionId == null)
                     return new HttPeteResponse(null, 400, "WorkspaceId or CollectionId must be provided.");
-                else if (workspaceId != null && collectionId != null)
-                    endpoints = _context.Endpoints.Where(x => x.CollectionId == collectionId && x.WorkspaceId == workspaceId).ToArray();
-                else if (workspaceId != null)
-                    endpoints = _context.Endpoints.Where(x => x.WorkspaceId == workspaceId).ToArray();
-                else if (collectionId != null)
-                    endpoints = _context.Endpoints.Where(x => x.CollectionId == collectionId).ToArray();
-                else // Theoretically will never happen
-                    return new HttPeteResponse(null, 400, "WorkspaceId or CollectionId must be provided.");
 
-                return new HttPeteResponse(endpoints, 200, "");
+                var endpoints = await _endpointService.GetEndpointsAsync(workspaceId, collectionId, cancellationToken);
+                return new HttPeteResponse(endpoints, 200, "Successfully retrieved endpoints.");
             }
             catch (Exception e)
             {
@@ -50,9 +40,8 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                await _context.Endpoints.AddAsync(endpoint, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(endpoint, 200, "");
+                var added = await _endpointService.AddEndpointAsync(endpoint, cancellationToken);
+                return new HttPeteResponse(added, 200, "Successfully added endpoint.");
             }
             catch (Exception e)
             {
@@ -66,9 +55,8 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                _context.Endpoints.Update(endpoint);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(endpoint, 200, "");
+                var updated = await _endpointService.UpdateEndpointAsync(endpoint, cancellationToken);
+                return new HttPeteResponse(updated, 200, "Successfully updated endpoint.");
             }
             catch (Exception e)
             {
@@ -82,10 +70,8 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var endpoint = await _context.Endpoints.FindAsync(id);
-                _context.Endpoints.Remove(endpoint);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(endpoint, 200, "");
+                var deleted = await _endpointService.DeleteEndpointAsync(id, cancellationToken);
+                return new HttPeteResponse(deleted, 200, "Successfully deleted endpoint.");
             }
             catch (Exception e)
             {

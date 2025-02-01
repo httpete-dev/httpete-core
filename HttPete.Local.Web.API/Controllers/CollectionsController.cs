@@ -1,30 +1,34 @@
 ﻿using HttPete.Model.Tenants;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using HttPete.Services.Network;
-using HttPete.Web.API.LocalDB;
+using HttPete.Services;
 
 namespace HttPete.Web.API.Controllers
 {
+    //NC_TODO: remove verbs from the URL
     [Route("api/[controller]")]
     [ApiController]
     public class CollectionsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICollectionService _service;
 
-        public CollectionsController(AppDbContext context)
+        public CollectionsController(ICollectionService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet]
-        [Route("get")]
-        public async Task<HttPeteResponse> GetForWorkspace(int workspaceId, CancellationToken cancellationToken = default)
+        [Route("{id}")]
+        public async Task<HttPeteResponse> Get(int collectionId, CancellationToken cancellationToken = default)
         {
             try
             {
-                var collections = await _context.Collections.Where(x => x.WorkspaceId == workspaceId).ToArrayAsync(cancellationToken);
-                return new HttPeteResponse(collections, 200, "");
+                var collection = await _service.GetCollection(collectionId, cancellationToken);
+                if (collection == null)
+                {
+                    return new HttPeteResponse(null, 404, "Collection not found.");
+                }
+                return new HttPeteResponse(collection, 200, "");
             }
             catch (Exception e)
             {
@@ -38,8 +42,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                await _context.Collections.AddAsync(collection, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
+                await _service.Create(collection, cancellationToken);
                 return new HttPeteResponse(collection, 200, "");
             }
             catch (Exception e)
@@ -54,8 +57,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                _context.Collections.Update(collection);
-                await _context.SaveChangesAsync(cancellationToken);
+                await _service.Update(collection, cancellationToken);
                 return new HttPeteResponse(collection, 200, "");
             }
             catch (Exception e)
@@ -70,9 +72,12 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var collection = await _context.Collections.FindAsync(id);
-                _context.Collections.Remove(collection);
-                await _context.SaveChangesAsync(cancellationToken);
+                var collection = await _service.Delete(id, cancellationToken);
+                if(collection != null)
+                {
+                    return new HttPeteResponse(null, 404, "Collection not found.");
+                }
+
                 return new HttPeteResponse(collection, 200, "");
             }
             catch (Exception e)

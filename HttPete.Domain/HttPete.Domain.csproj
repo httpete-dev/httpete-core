@@ -4,11 +4,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HttPete.Domain\HttPete.Domain.csproj" />
     <ProjectReference Include="..\HttPete.Model\HttPete.Model.csproj" />
   </ItemGroup>
 

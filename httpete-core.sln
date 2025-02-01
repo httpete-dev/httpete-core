@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Services", "HttPete
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Model", "HttPete.Model\HttPete.Model.csproj", "{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Infrastructure", "HttPete.Infrastructure\HttPete.Infrastructure.csproj", "{BDECF8CA-0AA8-4AE4-9DE1-5731A1B4E592}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Domain", "HttPete.Domain\HttPete.Domain.csproj", "{A7B02F97-8174-4A39-AEFD-240D527D1856}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDECF8CA-0AA8-4AE4-9DE1-5731A1B4E592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDECF8CA-0AA8-4AE4-9DE1-5731A1B4E592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDECF8CA-0AA8-4AE4-9DE1-5731A1B4E592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDECF8CA-0AA8-4AE4-9DE1-5731A1B4E592}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B02F97-8174-4A39-AEFD-240D527D1856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B02F97-8174-4A39-AEFD-240D527D1856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B02F97-8174-4A39-AEFD-240D527D1856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B02F97-8174-4A39-AEFD-240D527D1856}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,18 +1,27 @@
-﻿using HttPete.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using global::HttPete.Model.Tenants;
+using global::HttPete.Model;
+using HttPete.Model;
 using HttPete.Model.Tenants;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using Constants = HttPete.Model.Constants;
 using Endpoint = HttPete.Model.Tenants.Endpoint;
 
-namespace HttPete.Web.API.LocalDB
+namespace HttPete.Infrastructure.Persistence.SQLite
 {
+
     public class AppDbContext : DbContext
     {
-        public DbSet<Workspace> Workspaces{ get; set; }
-        public DbSet<Collection> Collections{ get; set; }
-        public DbSet<Endpoint> Endpoints{ get; set; }
-        public DbSet<Document> Documents{ get; set; }
-        public DbSet<BaseUrl> BaseUrls{ get; set; }
+        public DbSet<Workspace> Workspaces { get; set; }
+        public DbSet<Collection> Collections { get; set; }
+        public DbSet<Endpoint> Endpoints { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<BaseUrl> BaseUrls { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -79,4 +88,5 @@ namespace HttPete.Web.API.LocalDB
             );
         }
     }
+
 }
