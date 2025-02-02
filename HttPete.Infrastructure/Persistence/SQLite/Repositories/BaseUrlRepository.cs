@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HttPete.Infrastructure.Persistence.SQLite.Repositories
 {
-    public class BaseUrlRepository : BaseRepository<BaseUrl>, IBaseUrlRepository
+    internal class BaseUrlRepository : BaseRepository<BaseUrl>, IBaseUrlRepository
     {
         public BaseUrlRepository(HttPeteDbContext context) : base(context) { }
 

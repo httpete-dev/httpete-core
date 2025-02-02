@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HttPete.Infrastructure.Persistence.SQLite.Repositories
 {
-    public class EndpointRepository : BaseRepository<Endpoint>, IEndpointRepository
+    internal class EndpointRepository : BaseRepository<Endpoint>, IEndpointRepository
     {
         public EndpointRepository(HttPeteDbContext context) : base(context) { }
 

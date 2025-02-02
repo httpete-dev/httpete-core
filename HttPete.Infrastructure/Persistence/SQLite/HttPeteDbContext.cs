@@ -17,6 +17,8 @@ namespace HttPete.Infrastructure.Persistence.SQLite
 
     public class HttPeteDbContext : DbContext
     {
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Workspace> Workspaces { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Endpoint> Endpoints { get; set; }

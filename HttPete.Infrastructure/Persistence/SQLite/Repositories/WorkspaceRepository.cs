@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HttPete.Infrastructure.Persistence.SQLite.Repositories
 {
-    public class WorkspaceRepository : BaseRepository<Workspace>, IWorkspaceRepository
+    internal class WorkspaceRepository : BaseRepository<Workspace>, IWorkspaceRepository
     {
         public WorkspaceRepository(HttPeteDbContext context) : base(context) { }
     }
