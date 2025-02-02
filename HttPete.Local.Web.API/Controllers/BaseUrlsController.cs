@@ -16,6 +16,11 @@ namespace HttPete.Web.API.Controllers
             _baseUrlService = baseUrlService;
         }
 
+        /// <summary>
+        /// Get workspace base urls.
+        /// </summary>
+        /// <param name="workspaceId">Workspace Id.</param>
+        /// <returns>BaseUrls list.</returns>
         [HttpGet]
         [Route("get")]
         public async Task<HttPeteResponse> GetForWorkspace(int workspaceId, CancellationToken cancellationToken = default)
@@ -31,6 +36,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Add a base url to a workspace.
+        /// </summary>
+        /// <param name="baseUrl">BaseUrl</param>
+        /// <returns>BaseUrl</returns>
         [HttpPost]
         [Route("add")]
         public async Task<HttPeteResponse> AddBaseUrl(BaseUrl baseUrl, CancellationToken cancellationToken = default)
@@ -46,6 +56,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update a base url.
+        /// </summary>
+        /// <param name="baseUrl">BaseUrl</param>
+        /// <returns>BaseUrl</returns>
         [HttpPatch]
         [Route("update")]
         public async Task<HttPeteResponse> UpdateBaseUrl(BaseUrl baseUrl, CancellationToken cancellationToken = default)
@@ -61,6 +76,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a base url.
+        /// </summary>
+        /// <param name="id">BaseUrl Id</param>
+        /// <returns>BaseUrl</returns>
         [HttpDelete]
         [Route("delete")]
         public async Task<HttPeteResponse> DeleteBaseUrl(int id, CancellationToken cancellationToken = default)

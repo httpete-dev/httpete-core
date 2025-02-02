@@ -1,6 +1,9 @@
 using HttPete.Infrastructure;
 using HttPete.Infrastructure.Persistence.SQLite;
 using HttPete.Services;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 namespace HttPete.Web.API
 {
@@ -19,7 +22,15 @@ namespace HttPete.Web.API
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HttPete Core API", Version = "v1" });
+
+                // Include XML comments for Swagger documentation
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
 
             builder.Services.AddCors(options =>
@@ -41,13 +52,16 @@ namespace HttPete.Web.API
             }
 
             // Apply migrations and seed the database
+            //NC_TODO: centralized solution independent of the database type
             using (var scope = app.Services.CreateScope())
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                var dbContext = scope.ServiceProvider.GetRequiredService<HttPeteDbContext>();
                 dbContext.Database.EnsureCreated();
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
 
             app.UseAuthorization();
 

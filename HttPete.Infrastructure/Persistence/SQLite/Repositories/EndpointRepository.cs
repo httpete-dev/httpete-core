@@ -12,7 +12,7 @@ namespace HttPete.Infrastructure.Persistence.SQLite.Repositories
 {
     public class EndpointRepository : BaseRepository<Endpoint>, IEndpointRepository
     {
-        public EndpointRepository(AppDbContext context) : base(context) { }
+        public EndpointRepository(HttPeteDbContext context) : base(context) { }
 
         public async Task<IEnumerable<Endpoint>?> GetCollectionEndpoints(int collectionId)
            => await _context.Endpoints.Where(x => x.CollectionId == collectionId).ToArrayAsync();

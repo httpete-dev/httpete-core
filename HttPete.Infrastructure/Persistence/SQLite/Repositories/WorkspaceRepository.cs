@@ -10,6 +10,6 @@ namespace HttPete.Infrastructure.Persistence.SQLite.Repositories
 {
     public class WorkspaceRepository : BaseRepository<Workspace>, IWorkspaceRepository
     {
-        public WorkspaceRepository(AppDbContext context) : base(context) { }
+        public WorkspaceRepository(HttPeteDbContext context) : base(context) { }
     }
 }

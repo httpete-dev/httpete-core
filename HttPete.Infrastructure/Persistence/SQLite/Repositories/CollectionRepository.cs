@@ -14,7 +14,7 @@ namespace HttPete.Infrastructure.Persistence.SQLite.Repositories
     internal class CollectionRepository : BaseRepository<Collection>, ICollectionRepository
     {
 
-        public CollectionRepository(AppDbContext context) : base(context) { }
+        public CollectionRepository(HttPeteDbContext context) : base(context) { }
 
         public async Task<IReadOnlyList<Collection>> GetWorkspaceCollections(int workspaceId, CancellationToken cancellationToken)
         {

@@ -10,8 +10,16 @@ namespace HttPete.Infrastructure
     {
         public static IServiceCollection AddSQLiteRepositories(this IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => 
-                options.UseSqlite($"Data Source={HttPeteSettings.CONFIG_PATH}/HttPete-local.db")
+            var configDirectory = HttPeteSettings.CONFIG_PATH;
+            if (!Directory.Exists(configDirectory))
+            {
+                Directory.CreateDirectory(configDirectory);
+            }
+            var dbPath = Path.Combine(configDirectory, "HttPete-local.db");
+            services.AddDbContext<HttPeteDbContext>(options =>
+                options
+                    .UseSqlite($"Data Source={dbPath}")
+                    .EnableSensitiveDataLogging()
             );
 
             services.AddScoped<IWorkspaceRepository, Persistence.SQLite.Repositories.WorkspaceRepository>();

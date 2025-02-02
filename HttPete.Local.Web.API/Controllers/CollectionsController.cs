@@ -17,13 +17,18 @@ namespace HttPete.Web.API.Controllers
             _service = service;
         }
 
+        /// <summary>
+        /// Get a collection by id.
+        /// </summary>
+        /// <param name="id">Collection Id.</param>
+        /// <returns>Collection</returns>
         [HttpGet]
         [Route("{id}")]
-        public async Task<HttPeteResponse> Get(int collectionId, CancellationToken cancellationToken = default)
+        public async Task<HttPeteResponse> Get(int id, CancellationToken cancellationToken = default)
         {
             try
             {
-                var collection = await _service.GetCollection(collectionId, cancellationToken);
+                var collection = await _service.GetCollection(id, cancellationToken);
                 if (collection == null)
                 {
                     return new HttPeteResponse(null, 404, "Collection not found.");
@@ -36,6 +41,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Add a collection.
+        /// </summary>
+        /// <param name="collection">Collection</param>
+        /// <returns>Collection</returns>
         [HttpPost]
         [Route("add")]
         public async Task<HttPeteResponse> AddCollection(Collection collection, CancellationToken cancellationToken = default)
@@ -51,6 +61,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update a collection.
+        /// </summary>
+        /// <param name="collection">Collection</param>
+        /// <returns>Collection</returns>
         [HttpPatch]
         [Route("update")]
         public async Task<HttPeteResponse> UpdateCollection(Collection collection, CancellationToken cancellationToken = default)
@@ -66,6 +81,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a collection.
+        /// </summary>
+        /// <param name="id">Collection Id</param>
+        /// <returns>Collection</returns>
         [HttpDelete]
         [Route("delete")]
         public async Task<HttPeteResponse> DeleteCollection(int id, CancellationToken cancellationToken = default)

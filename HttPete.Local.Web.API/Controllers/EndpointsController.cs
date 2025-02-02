@@ -16,6 +16,12 @@ namespace HttPete.Web.API.Controllers
             _endpointService = endpointService;
         }
 
+        /// <summary>
+        /// Get endpoints by workspace or collection id.
+        /// </summary>
+        /// <param name="workspaceId">WorkspaceId</param>
+        /// <param name="collectionId">CollectionId</param>
+        /// <returns>Endpoints list</returns>
         [HttpGet]
         [Route("get")]
         public async Task<HttPeteResponse> Get(int? workspaceId = null, int? collectionId = null, CancellationToken cancellationToken = default)
@@ -34,6 +40,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Add an endpoint.
+        /// </summary>
+        /// <param name="endpoint">Endpoint</param>
+        /// <returns>Endpoint</returns>
         [HttpPost]
         [Route("add")]
         public async Task<HttPeteResponse> AddEndpoint(Endpoint endpoint, CancellationToken cancellationToken = default)
@@ -49,6 +60,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update an endpoint.
+        /// </summary>
+        /// <param name="endpoint">Endpoint</param>
+        /// <returns>Endpoint</returns>
         [HttpPatch]
         [Route("update")]
         public async Task<HttPeteResponse> UpdateEndpoint(Endpoint endpoint, CancellationToken cancellationToken = default)
@@ -64,6 +80,11 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete an endpoint.
+        /// </summary>
+        /// <param name="id">Endpoint Id</param>
+        /// <returns>Endpoint</returns>
         [HttpDelete]
         [Route("delete")]
         public async Task<HttPeteResponse> DeleteEndpoint(int id, CancellationToken cancellationToken = default)

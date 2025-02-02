@@ -11,7 +11,7 @@ namespace HttPete.Infrastructure.Persistence.SQLite.Repositories
 {
     public class BaseUrlRepository : BaseRepository<BaseUrl>, IBaseUrlRepository
     {
-        public BaseUrlRepository(AppDbContext context) : base(context) { }
+        public BaseUrlRepository(HttPeteDbContext context) : base(context) { }
 
         public async Task<IEnumerable<BaseUrl>> GetByWorkspaceIdAsync(int workspaceId, CancellationToken cancellationToken = default)
         {

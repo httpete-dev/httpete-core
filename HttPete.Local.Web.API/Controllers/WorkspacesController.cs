@@ -16,6 +16,12 @@ namespace HttPete.Web.API.Controllers
             _workspaceService = workspaceService;
         }
 
+        /// <summary>
+        /// Get a workspace by id.
+        /// </summary>
+        /// <param name="id">Workspace Id.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Workspace</returns>
         [HttpGet]
         [Route("get")]
         public async Task<HttPeteResponse> Get(int id, CancellationToken cancellationToken = default)
@@ -35,6 +41,12 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Add a workspace.
+        /// </summary>
+        /// <param name="workspace">Workspace</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Workspace</returns>
         [HttpPost]
         [Route("add")]
         public async Task<HttPeteResponse> AddWorkspace(Workspace workspace, CancellationToken cancellationToken = default)
@@ -50,6 +62,12 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update a workspace.
+        /// </summary>
+        /// <param name="workspace">Workspace</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Workspace</returns>
         [HttpPatch]
         [Route("update")]
         public async Task<HttPeteResponse> UpdateWorkspace(Workspace workspace, CancellationToken cancellationToken = default)
@@ -69,6 +87,12 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a workspace.
+        /// </summary>
+        /// <param name="id">Workspace Id</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Workspace</returns>
         [HttpDelete]
         [Route("delete")]
         public async Task<HttPeteResponse> DeleteWorkspace(int id, CancellationToken cancellationToken = default)

@@ -50,7 +50,6 @@ namespace HttPete.Model.Tenants
         {
             Title = Defaults.DEFAULT_WORKSPACE_NAME;
             Description = Defaults.DEFAULT_WORKSPACE_DESCRIPTION;
-            Collections = [ Defaults.DEFAULT_COLLECTION ];
         }
 
         public static Workspace Default => Defaults.DEFAULT_WORKSPACE;
