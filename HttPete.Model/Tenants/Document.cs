@@ -8,6 +8,8 @@ namespace HttPete.Model.Tenants
 
         public int WorkspaceId { get; set; }
 
+        public int? ParentId { get; set; }
+
         public string Title { get; set; }
 
         public string Text { get; set; }

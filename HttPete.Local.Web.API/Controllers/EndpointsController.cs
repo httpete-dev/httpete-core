@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using HttPete.Services.Network;
-using HttPete.Web.API.LocalDB;
 using Endpoint = HttPete.Model.Tenants.Endpoint;
+using HttPete.Application.Services;
 
 namespace HttPete.Web.API.Controllers
 {
@@ -10,33 +9,30 @@ namespace HttPete.Web.API.Controllers
     [ApiController]
     public class EndpointsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IEndpointService _endpointService;
 
-        public EndpointsController(AppDbContext context)
+        public EndpointsController(IEndpointService endpointService)
         {
-            _context = context;
+            _endpointService = endpointService;
         }
 
+        /// <summary>
+        /// Get endpoints by workspace or collection id.
+        /// </summary>
+        /// <param name="workspaceId">WorkspaceId</param>
+        /// <param name="collectionId">CollectionId</param>
+        /// <returns>Endpoints list</returns>
         [HttpGet]
         [Route("get")]
         public async Task<HttPeteResponse> Get(int? workspaceId = null, int? collectionId = null, CancellationToken cancellationToken = default)
         {
             try
             {
-                Endpoint[] endpoints = null;
-
                 if (workspaceId == null && collectionId == null)
                     return new HttPeteResponse(null, 400, "WorkspaceId or CollectionId must be provided.");
-                else if (workspaceId != null && collectionId != null)
-                    endpoints = _context.Endpoints.Where(x => x.CollectionId == collectionId && x.WorkspaceId == workspaceId).ToArray();
-                else if (workspaceId != null)
-                    endpoints = _context.Endpoints.Where(x => x.WorkspaceId == workspaceId).ToArray();
-                else if (collectionId != null)
-                    endpoints = _context.Endpoints.Where(x => x.CollectionId == collectionId).ToArray();
-                else // Theoretically will never happen
-                    return new HttPeteResponse(null, 400, "WorkspaceId or CollectionId must be provided.");
 
-                return new HttPeteResponse(endpoints, 200, "");
+                var endpoints = await _endpointService.GetEndpoints(workspaceId, collectionId, cancellationToken);
+                return new HttPeteResponse(endpoints, 200, "Successfully retrieved endpoints.");
             }
             catch (Exception e)
             {
@@ -44,15 +40,19 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Add an endpoint.
+        /// </summary>
+        /// <param name="endpoint">Endpoint</param>
+        /// <returns>Endpoint</returns>
         [HttpPost]
         [Route("add")]
         public async Task<HttPeteResponse> AddEndpoint(Endpoint endpoint, CancellationToken cancellationToken = default)
         {
             try
             {
-                await _context.Endpoints.AddAsync(endpoint, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(endpoint, 200, "");
+                var added = await _endpointService.AddEndpoint(endpoint, cancellationToken);
+                return new HttPeteResponse(added, 200, "Successfully added endpoint.");
             }
             catch (Exception e)
             {
@@ -60,15 +60,19 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update an endpoint.
+        /// </summary>
+        /// <param name="endpoint">Endpoint</param>
+        /// <returns>Endpoint</returns>
         [HttpPatch]
         [Route("update")]
         public async Task<HttPeteResponse> UpdateEndpoint(Endpoint endpoint, CancellationToken cancellationToken = default)
         {
             try
             {
-                _context.Endpoints.Update(endpoint);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(endpoint, 200, "");
+                var updated = await _endpointService.UpdateEndpoint(endpoint, cancellationToken);
+                return new HttPeteResponse(updated, 200, "Successfully updated endpoint.");
             }
             catch (Exception e)
             {
@@ -76,16 +80,19 @@ namespace HttPete.Web.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete an endpoint.
+        /// </summary>
+        /// <param name="id">Endpoint Id</param>
+        /// <returns>Endpoint</returns>
         [HttpDelete]
         [Route("delete")]
         public async Task<HttPeteResponse> DeleteEndpoint(int id, CancellationToken cancellationToken = default)
         {
             try
             {
-                var endpoint = await _context.Endpoints.FindAsync(id);
-                _context.Endpoints.Remove(endpoint);
-                await _context.SaveChangesAsync(cancellationToken);
-                return new HttPeteResponse(endpoint, 200, "");
+                var deleted = await _endpointService.DeleteEndpoint(id, cancellationToken);
+                return new HttPeteResponse(deleted, 200, "Successfully deleted endpoint.");
             }
             catch (Exception e)
             {

@@ -17,9 +17,14 @@ namespace HttPete.Web.API.Controllers
             _environment = environment;
         }
 
+        /// <summary>
+        /// Upload a file.
+        /// </summary>
+        /// <param name="file">File</param>
+        /// <returns>URL</returns>
         [HttpPost("upload")]
         [RequestSizeLimit(10 * 1024 * 1024)] // 10 MB limit
-        public async Task<IActionResult> Upload([FromForm] IFormFile file)
+        public async Task<IActionResult> Upload(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
