@@ -22,7 +22,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var workspace = await _workspaceService.GetWorkspaceAsync(id, cancellationToken);
+                var workspace = await _workspaceService.GetWorkspace(id, cancellationToken);
                 return new HttPeteResponse(workspace, 200, "Successfully retrieved workspace.");
             }
             catch (KeyNotFoundException e)
@@ -41,7 +41,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var added = await _workspaceService.AddWorkspaceAsync(workspace, cancellationToken);
+                var added = await _workspaceService.AddWorkspace(workspace, cancellationToken);
                 return new HttPeteResponse(added, 200, "Successfully added workspace.");
             }
             catch (Exception e)
@@ -56,7 +56,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var updated = await _workspaceService.UpdateWorkspaceAsync(workspace, cancellationToken);
+                var updated = await _workspaceService.UpdateWorkspace(workspace, cancellationToken);
                 return new HttPeteResponse(updated, 200, "Successfully updated workspace.");
             }
             catch (KeyNotFoundException e)
@@ -75,7 +75,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var deleted = await _workspaceService.DeleteWorkspaceAsync(id, cancellationToken);
+                var deleted = await _workspaceService.DeleteWorkspace(id, cancellationToken);
                 return new HttPeteResponse(deleted, 200, "Successfully deleted workspace.");
             }
             catch (KeyNotFoundException e)

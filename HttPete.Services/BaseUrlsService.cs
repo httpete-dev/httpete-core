@@ -10,10 +10,10 @@ namespace HttPete.Services
 {
     public interface IBaseUrlService
     {
-        Task<IEnumerable<BaseUrl>> GetBaseUrlsForWorkspaceAsync(int workspaceId, CancellationToken cancellationToken = default);
-        Task<BaseUrl> AddBaseUrlAsync(BaseUrl baseUrl, CancellationToken cancellationToken = default);
-        Task<BaseUrl> UpdateBaseUrlAsync(BaseUrl baseUrl, CancellationToken cancellationToken = default);
-        Task<BaseUrl> DeleteBaseUrlAsync(int id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<BaseUrl>> GetBaseUrlsForWorkspace(int workspaceId, CancellationToken cancellationToken = default);
+        Task<BaseUrl> AddBaseUrl(BaseUrl baseUrl, CancellationToken cancellationToken = default);
+        Task<BaseUrl> UpdateBaseUrl(BaseUrl baseUrl, CancellationToken cancellationToken = default);
+        Task<BaseUrl> DeleteBaseUrl(int id, CancellationToken cancellationToken = default);
     }
 
     public class BaseUrlService : IBaseUrlService
@@ -25,24 +25,24 @@ namespace HttPete.Services
             _baseUrlRepository = baseUrlRepository;
         }
 
-        public async Task<IEnumerable<BaseUrl>> GetBaseUrlsForWorkspaceAsync(int workspaceId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<BaseUrl>> GetBaseUrlsForWorkspace(int workspaceId, CancellationToken cancellationToken = default)
         {
             return await _baseUrlRepository.GetByWorkspaceIdAsync(workspaceId, cancellationToken);
         }
 
-        public async Task<BaseUrl> AddBaseUrlAsync(BaseUrl baseUrl, CancellationToken cancellationToken = default)
+        public async Task<BaseUrl> AddBaseUrl(BaseUrl baseUrl, CancellationToken cancellationToken = default)
         {
-            return await _baseUrlRepository.AddAsync(baseUrl, cancellationToken);
+            return await _baseUrlRepository.Add(baseUrl, cancellationToken);
         }
 
-        public async Task<BaseUrl> UpdateBaseUrlAsync(BaseUrl baseUrl, CancellationToken cancellationToken = default)
+        public async Task<BaseUrl> UpdateBaseUrl(BaseUrl baseUrl, CancellationToken cancellationToken = default)
         {
-            return await _baseUrlRepository.UpdateAsync(baseUrl, cancellationToken);
+            return await _baseUrlRepository.Update(baseUrl, cancellationToken);
         }
 
-        public async Task<BaseUrl> DeleteBaseUrlAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<BaseUrl> DeleteBaseUrl(int id, CancellationToken cancellationToken = default)
         {
-            return await _baseUrlRepository.DeleteAsync(id, cancellationToken);
+            return await _baseUrlRepository.Delete(id, cancellationToken);
         }
     }
 }

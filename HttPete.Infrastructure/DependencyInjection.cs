@@ -15,8 +15,8 @@ namespace HttPete.Infrastructure
             );
 
             services.AddScoped<IWorkspaceRepository, Persistence.SQLite.Repositories.WorkspaceRepository>();
-            services.AddScoped<IEndpointsRepository, Persistence.SQLite.Repositories.EndpointsRepository>();
-            services.AddScoped<ICollectionsRepository, Persistence.SQLite.Repositories.CollectionsRepository>();
+            services.AddScoped<IEndpointRepository, Persistence.SQLite.Repositories.EndpointRepository>();
+            services.AddScoped<ICollectionRepository, Persistence.SQLite.Repositories.CollectionRepository>();
             services.AddScoped<IBaseUrlRepository, Persistence.SQLite.Repositories.BaseUrlRepository>();
 
             return services;

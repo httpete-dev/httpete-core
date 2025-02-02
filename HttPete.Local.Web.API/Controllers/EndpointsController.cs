@@ -25,7 +25,7 @@ namespace HttPete.Web.API.Controllers
                 if (workspaceId == null && collectionId == null)
                     return new HttPeteResponse(null, 400, "WorkspaceId or CollectionId must be provided.");
 
-                var endpoints = await _endpointService.GetEndpointsAsync(workspaceId, collectionId, cancellationToken);
+                var endpoints = await _endpointService.GetEndpoints(workspaceId, collectionId, cancellationToken);
                 return new HttPeteResponse(endpoints, 200, "Successfully retrieved endpoints.");
             }
             catch (Exception e)
@@ -40,7 +40,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var added = await _endpointService.AddEndpointAsync(endpoint, cancellationToken);
+                var added = await _endpointService.AddEndpoint(endpoint, cancellationToken);
                 return new HttPeteResponse(added, 200, "Successfully added endpoint.");
             }
             catch (Exception e)
@@ -55,7 +55,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var updated = await _endpointService.UpdateEndpointAsync(endpoint, cancellationToken);
+                var updated = await _endpointService.UpdateEndpoint(endpoint, cancellationToken);
                 return new HttPeteResponse(updated, 200, "Successfully updated endpoint.");
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var deleted = await _endpointService.DeleteEndpointAsync(id, cancellationToken);
+                var deleted = await _endpointService.DeleteEndpoint(id, cancellationToken);
                 return new HttPeteResponse(deleted, 200, "Successfully deleted endpoint.");
             }
             catch (Exception e)

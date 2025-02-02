@@ -21,9 +21,9 @@ namespace HttPete.Services
 
     public class CollectionService : ICollectionService
     {
-        private readonly ICollectionsRepository _repository;
+        private readonly ICollectionRepository _repository;
 
-        public CollectionService(ICollectionsRepository repository)
+        public CollectionService(ICollectionRepository repository)
         {
             ArgumentNullException.ThrowIfNull(repository, nameof(repository));
 
@@ -40,6 +40,6 @@ namespace HttPete.Services
             => await _repository.Update(collection, cancellationToken);
         
         public async Task<Collection?> GetCollection(int collectionId, CancellationToken cancellationToken)
-            => await _repository.GetCollection(collectionId, cancellationToken);
+            => await _repository.GetById(collectionId, cancellationToken);
     }
 }

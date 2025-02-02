@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HttPete.Domain.Interfaces.Repositories
 {
-    public interface IDocumentsRepository
+    public interface IDocumentRepository
     {
     }
 }

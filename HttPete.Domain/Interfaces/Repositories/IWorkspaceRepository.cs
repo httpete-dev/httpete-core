@@ -9,9 +9,9 @@ namespace HttPete.Domain.Interfaces.Repositories
 {
     public interface IWorkspaceRepository
     {
-        Task<Workspace> GetByIdAsync(int id, CancellationToken cancellationToken = default);
-        Task<Workspace> AddAsync(Workspace workspace, CancellationToken cancellationToken = default);
-        Task<Workspace> UpdateAsync(Workspace workspace, CancellationToken cancellationToken = default);
-        Task<Workspace> DeleteAsync(int id, CancellationToken cancellationToken = default);
+        Task<Workspace?> GetById(int id, CancellationToken cancellationToken = default);
+        Task<Workspace> Add(Workspace workspace, CancellationToken cancellationToken = default);
+        Task<Workspace> Update(Workspace workspace, CancellationToken cancellationToken = default);
+        Task<Workspace> Delete(int id, CancellationToken cancellationToken = default);
     }
 }

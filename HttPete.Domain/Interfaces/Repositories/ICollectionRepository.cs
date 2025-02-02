@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace HttPete.Domain.Interfaces.Repositories
 {
-    public interface ICollectionsRepository
+    public interface ICollectionRepository
     {
         Task<IReadOnlyList<Collection>> GetWorkspaceCollections(int workspaceId, CancellationToken cancellationToken);
-        Task<Collection?> GetCollection(int collectionId, CancellationToken cancellationToken);
+        Task<Collection?> GetById(int collectionId, CancellationToken cancellationToken);
         Task<Collection> Add(Collection collection, CancellationToken cancellationToken);
-        Task<Collection?> Update(Collection collection, CancellationToken cancellationToken);
-        Task<Collection?> Delete(int collectionId, CancellationToken cancellationToken);
+        Task<Collection> Update(Collection collection, CancellationToken cancellationToken);
+        Task<Collection> Delete(int collectionId, CancellationToken cancellationToken);
     }
 }

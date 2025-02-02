@@ -22,7 +22,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var baseUrls = await _baseUrlService.GetBaseUrlsForWorkspaceAsync(workspaceId, cancellationToken);
+                var baseUrls = await _baseUrlService.GetBaseUrlsForWorkspace(workspaceId, cancellationToken);
                 return new HttPeteResponse(baseUrls, 200, "Successfully retrieved base urls.");
             }
             catch (Exception e)
@@ -37,7 +37,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var added = await _baseUrlService.AddBaseUrlAsync(baseUrl, cancellationToken);
+                var added = await _baseUrlService.AddBaseUrl(baseUrl, cancellationToken);
                 return new HttPeteResponse(added, 200, $"Successfully added base url: {added.Value}.");
             }
             catch (Exception e)
@@ -52,7 +52,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var updated = await _baseUrlService.UpdateBaseUrlAsync(baseUrl, cancellationToken);
+                var updated = await _baseUrlService.UpdateBaseUrl(baseUrl, cancellationToken);
                 return new HttPeteResponse(updated, 200, "Successfully updated base url.");
             }
             catch (Exception e)
@@ -67,7 +67,7 @@ namespace HttPete.Web.API.Controllers
         {
             try
             {
-                var deleted = await _baseUrlService.DeleteBaseUrlAsync(id, cancellationToken);
+                var deleted = await _baseUrlService.DeleteBaseUrl(id, cancellationToken);
                 return new HttPeteResponse(deleted, 200, "Successfully deleted base url.");
             }
             catch (Exception e)

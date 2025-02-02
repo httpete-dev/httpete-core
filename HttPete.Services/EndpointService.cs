@@ -10,39 +10,39 @@ namespace HttPete.Services
 {
     public interface IEndpointService
     {
-        Task<IEnumerable<Endpoint>> GetEndpointsAsync(int? workspaceId, int? collectionId, CancellationToken cancellationToken = default);
-        Task<Endpoint> AddEndpointAsync(Endpoint endpoint, CancellationToken cancellationToken = default);
-        Task<Endpoint> UpdateEndpointAsync(Endpoint endpoint, CancellationToken cancellationToken = default);
-        Task<Endpoint> DeleteEndpointAsync(int id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Endpoint>> GetEndpoints(int? workspaceId, int? collectionId, CancellationToken cancellationToken = default);
+        Task<Endpoint> AddEndpoint(Endpoint endpoint, CancellationToken cancellationToken = default);
+        Task<Endpoint> UpdateEndpoint(Endpoint endpoint, CancellationToken cancellationToken = default);
+        Task<Endpoint> DeleteEndpoint(int id, CancellationToken cancellationToken = default);
     }
 
     public class EndpointService : IEndpointService
     {
-        private readonly IEndpointsRepository _endpointRepository;
+        private readonly IEndpointRepository _endpointRepository;
 
-        public EndpointService(IEndpointsRepository endpointRepository)
+        public EndpointService(IEndpointRepository endpointRepository)
         {
             _endpointRepository = endpointRepository;
         }
 
-        public async Task<IEnumerable<Endpoint>> GetEndpointsAsync(int? workspaceId, int? collectionId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Endpoint>> GetEndpoints(int? workspaceId, int? collectionId, CancellationToken cancellationToken = default)
         {
-            return await _endpointRepository.GetEndpointsAsync(workspaceId, collectionId, cancellationToken);
+            return await _endpointRepository.GetWorkspaceEndpoints(workspaceId, collectionId, cancellationToken);
         }
 
-        public async Task<Endpoint> AddEndpointAsync(Endpoint endpoint, CancellationToken cancellationToken = default)
+        public async Task<Endpoint> AddEndpoint(Endpoint endpoint, CancellationToken cancellationToken = default)
         {
-            return await _endpointRepository.AddAsync(endpoint, cancellationToken);
+            return await _endpointRepository.Add(endpoint, cancellationToken);
         }
 
-        public async Task<Endpoint> UpdateEndpointAsync(Endpoint endpoint, CancellationToken cancellationToken = default)
+        public async Task<Endpoint> UpdateEndpoint(Endpoint endpoint, CancellationToken cancellationToken = default)
         {
-            return await _endpointRepository.UpdateAsync(endpoint, cancellationToken);
+            return await _endpointRepository.Update(endpoint, cancellationToken);
         }
 
-        public async Task<Endpoint> DeleteEndpointAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<Endpoint> DeleteEndpoint(int id, CancellationToken cancellationToken = default)
         {
-            return await _endpointRepository.DeleteAsync(id, cancellationToken);
+            return await _endpointRepository.Delete(id, cancellationToken);
         }
     }
 }
