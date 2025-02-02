@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HttPete.Services.Network;
 using Endpoint = HttPete.Model.Tenants.Endpoint;
-using HttPete.Services;
+using HttPete.Application.Services;
 
 namespace HttPete.Web.API.Controllers
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HttPete.Services
+namespace HttPete.Application.Services
 {
     public interface ICollectionService
     {
@@ -30,15 +30,15 @@ namespace HttPete.Services
             _repository = repository;
         }
 
-        public async Task<Collection> Create(Collection collection, CancellationToken cancellationToken) 
+        public async Task<Collection> Create(Collection collection, CancellationToken cancellationToken)
         => await _repository.Add(collection, cancellationToken);
-        
-        public async Task<Collection?> Delete(int collectionId, CancellationToken cancellationToken) 
+
+        public async Task<Collection?> Delete(int collectionId, CancellationToken cancellationToken)
             => await _repository.Delete(collectionId, cancellationToken);
-        
-        public async Task<Collection?> Update(Collection collection, CancellationToken cancellationToken) 
+
+        public async Task<Collection?> Update(Collection collection, CancellationToken cancellationToken)
             => await _repository.Update(collection, cancellationToken);
-        
+
         public async Task<Collection?> GetCollection(int collectionId, CancellationToken cancellationToken)
             => await _repository.GetById(collectionId, cancellationToken);
     }

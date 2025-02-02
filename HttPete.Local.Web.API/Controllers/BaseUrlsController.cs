@@ -1,7 +1,7 @@
 ﻿using HttPete.Model.Tenants;
 using Microsoft.AspNetCore.Mvc;
 using HttPete.Services.Network;
-using HttPete.Services;
+using HttPete.Application.Services;
 
 namespace HttPete.Web.API.Controllers
 {

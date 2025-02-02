@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HttPete.Services
+namespace HttPete.Application.Services
 {
     public interface IBaseUrlService
     {

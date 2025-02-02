@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Crosscutting", "Htt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Local.Web.API", "HttPete.Local.Web.API\HttPete.Local.Web.API.csproj", "{201216FC-4822-4A07-BE7F-4F3C7350B0F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Services", "HttPete.Services\HttPete.Services.csproj", "{B95CEE09-77C9-4D31-A44E-15C04436F642}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Application", "HttPete.Application\HttPete.Application.csproj", "{B95CEE09-77C9-4D31-A44E-15C04436F642}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttPete.Model", "HttPete.Model\HttPete.Model.csproj", "{8BF55D44-5A0E-4F5B-935E-8008A1BC36BE}"
 EndProject

@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HttPete.Application\HttPete.Application.csproj" />
     <ProjectReference Include="..\HttPete.Infrastructure\HttPete.Infrastructure.csproj" />
     <ProjectReference Include="..\HttPete.Model\HttPete.Model.csproj" />
-    <ProjectReference Include="..\HttPete.Services\HttPete.Services.csproj" />
   </ItemGroup>
 
 </Project>
