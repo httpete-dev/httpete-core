@@ -17,10 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="HTTPETE-icon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="..\HTTPETE-icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -41,6 +37,13 @@
   <ItemGroup>
     <PackageReference Include="Abp" Version="10.0.0" />
     <PackageReference Include="SAK25" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="HTTPETE-icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

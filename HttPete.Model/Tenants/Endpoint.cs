@@ -67,8 +67,6 @@ namespace HttPete.Model.Tenants
             Method = Defaults.DEFAULT_ENDPOINT_METHOD;
             Headers = Defaults.DEFAULT_ENDPOINT_HEADERS;
             Body = Defaults.DEFAULT_ENDPOINT_BODY;
-            BaseUrl = Defaults.DEFAULT_BASEURL;
-            Documentation = Defaults.DEFAULT_DOCUMENT;
         }
 
         /// <summary>
@@ -86,7 +84,6 @@ namespace HttPete.Model.Tenants
             CollectionId = collectionId;
             OrganizationId = organizationId;
             WorkspaceId = workspaceId;
-            BaseUrl = Defaults.DEFAULT_BASEURL;
             Documentation = Defaults.DEFAULT_DOCUMENT;
         }
     }
