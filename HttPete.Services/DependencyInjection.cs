@@ -1,5 +1,5 @@
 ﻿using HttPete.Application.Services;
-using HttPete.Domain.Interfaces.Repositories;
+using HttPete.Infrastructure.Persistence.Interfaces.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

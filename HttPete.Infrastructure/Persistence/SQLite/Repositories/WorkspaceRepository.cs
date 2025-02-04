@@ -1,4 +1,4 @@
-﻿using HttPete.Domain.Interfaces.Repositories;
+﻿using HttPete.Infrastructure.Persistence.Interfaces.Repositories;
 using HttPete.Model.Tenants;
 using System;
 using System.Collections.Generic;

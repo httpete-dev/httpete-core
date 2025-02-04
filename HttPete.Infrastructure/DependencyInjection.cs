@@ -1,4 +1,4 @@
-﻿using HttPete.Domain.Interfaces.Repositories;
+﻿using HttPete.Infrastructure.Persistence.Interfaces.Repositories;
 using HttPete.Infrastructure.Persistence.SQLite;
 using HttPete.Services.Config;
 using Microsoft.EntityFrameworkCore;

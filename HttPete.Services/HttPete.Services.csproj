@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HttPete.Domain\HttPete.Domain.csproj" />
+    <ProjectReference Include="..\HttPete.Infrastructure\HttPete.Infrastructure.csproj" />
     <ProjectReference Include="..\HttPete.Model\HttPete.Model.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,5 @@
 ﻿using Abp.Domain.Repositories;
-using HttPete.Domain.Interfaces.Repositories;
+using HttPete.Infrastructure.Persistence.Interfaces.Repositories;
 using HttPete.Model.Tenants;
 using Microsoft.EntityFrameworkCore;
 using System;

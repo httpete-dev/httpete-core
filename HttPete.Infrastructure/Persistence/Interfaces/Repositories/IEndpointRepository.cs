@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HttPete.Domain.Interfaces.Repositories
+namespace HttPete.Infrastructure.Persistence.Interfaces.Repositories
 {
     public interface IEndpointRepository
     {

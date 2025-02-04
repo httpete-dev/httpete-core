@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using HttPete.Domain.Interfaces.Repositories;
+using HttPete.Infrastructure.Persistence.Interfaces.Repositories;
 using HttPete.Infrastructure.IntegrationTests.Utils;
 using HttPete.Infrastructure.Persistence.SQLite.Repositories;
 using HttPete.Model.Tenants;
