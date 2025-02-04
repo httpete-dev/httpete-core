@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using HttPete.Infrastructure.IntegrationTests.Utils;
 using HttPete.Infrastructure.Persistence.SQLite.Repositories;
 using HttPete.Model.Tenants;
@@ -11,7 +10,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
 {
-
     [TestClass]
     public class EndpointRepositoryTests
     {
@@ -44,8 +42,8 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.GetCollectionEndpoints(collectionId);
 
             // Assert
-            result.Should().HaveCount(2)
-                .And.OnlyContain(x => x.CollectionId == collectionId);
+            Assert.AreEqual(2, result.Count());
+            Assert.IsTrue(result.All(x => x.CollectionId == collectionId));
         }
 
         [TestMethod]
@@ -67,8 +65,8 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.GetWorkspaceEndpoints(workspaceId, null, CancellationToken.None);
 
             // Assert
-            result.Should().HaveCount(2)
-                .And.OnlyContain(x => x.WorkspaceId == workspaceId);
+            Assert.AreEqual(2, result.Count());
+            Assert.IsTrue(result.All(x => x.WorkspaceId == workspaceId));
         }
 
         [TestMethod]
@@ -90,8 +88,8 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.GetWorkspaceEndpoints(null, collectionId, CancellationToken.None);
 
             // Assert
-            result.Should().HaveCount(2)
-                .And.OnlyContain(x => x.CollectionId == collectionId);
+            Assert.AreEqual(2, result.Count());
+            Assert.IsTrue(result.All(x => x.CollectionId == collectionId));
         }
 
         [TestMethod]
@@ -115,8 +113,8 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.GetWorkspaceEndpoints(workspaceId, collectionId, CancellationToken.None);
 
             // Assert
-            result.Should().HaveCount(2)
-                .And.OnlyContain(x => x.WorkspaceId == workspaceId && x.CollectionId == collectionId);
+            Assert.AreEqual(2, result.Count());
+            Assert.IsTrue(result.All(x => x.WorkspaceId == workspaceId && x.CollectionId == collectionId));
         }
 
         [TestMethod]
@@ -129,9 +127,15 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.Add(endpoint);
 
             // Assert
-            result.Should().BeEquivalentTo(endpoint);
+            Assert.AreEqual(endpoint.Id, result.Id);
+            Assert.AreEqual(endpoint.WorkspaceId, result.WorkspaceId);
+            Assert.AreEqual(endpoint.CollectionId, result.CollectionId);
+
             var persisted = await _fixture.Context.Endpoints.FindAsync(10);
-            persisted.Should().NotBeNull();
+            Assert.IsNotNull(persisted);
+            Assert.AreEqual(endpoint.Id, persisted.Id);
+            Assert.AreEqual(endpoint.WorkspaceId, persisted.WorkspaceId);
+            Assert.AreEqual(endpoint.CollectionId, persisted.CollectionId);
         }
 
         [TestMethod]
@@ -147,9 +151,11 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.Update(endpoint);
 
             // Assert
-            result.Url.Should().Be("/new-url");
+            Assert.AreEqual("/new-url", result.Url);
+
             var persisted = await _fixture.Context.Endpoints.FindAsync(20);
-            persisted.Url.Should().Be("/new-url");
+            Assert.IsNotNull(persisted);
+            Assert.AreEqual("/new-url", persisted.Url);
         }
 
         [TestMethod]
@@ -164,9 +170,12 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var deleted = await _repository.Delete(30);
 
             // Assert
-            deleted.Should().BeEquivalentTo(endpoint);
+            Assert.AreEqual(endpoint.Id, deleted.Id);
+            Assert.AreEqual(endpoint.WorkspaceId, deleted.WorkspaceId);
+            Assert.AreEqual(endpoint.CollectionId, deleted.CollectionId);
+
             var exists = await _fixture.Context.Endpoints.FindAsync(30);
-            exists.Should().BeNull();
+            Assert.IsNull(exists);
         }
 
         [TestCleanup]
@@ -175,5 +184,4 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             _fixture.Dispose();
         }
     }
-
 }

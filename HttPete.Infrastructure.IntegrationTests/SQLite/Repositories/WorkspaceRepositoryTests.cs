@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using HttPete.Infrastructure.IntegrationTests.Utils;
 using HttPete.Infrastructure.Persistence.SQLite.Repositories;
 using HttPete.Model.Tenants;
@@ -34,9 +33,15 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.Add(workspace);
 
             // Assert
-            result.Should().BeEquivalentTo(workspace);
+            Assert.AreEqual(workspace.Id, result.Id);
+            Assert.AreEqual(workspace.Title, result.Title);
+            Assert.AreEqual(workspace.OrganizationId, result.OrganizationId);
+
             var persisted = await _fixture.Context.Workspaces.FindAsync(15);
-            persisted.Should().NotBeNull();
+            Assert.IsNotNull(persisted);
+            Assert.AreEqual(workspace.Id, persisted.Id);
+            Assert.AreEqual(workspace.Title, persisted.Title);
+            Assert.AreEqual(workspace.OrganizationId, persisted.OrganizationId);
         }
 
         [TestMethod]
@@ -51,8 +56,10 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.GetById(25);
 
             // Assert
-            result.Should().NotBeNull();
-            result.Should().BeEquivalentTo(workspace);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(workspace.Id, result.Id);
+            Assert.AreEqual(workspace.Title, result.Title);
+            Assert.AreEqual(workspace.OrganizationId, result.OrganizationId);
         }
 
         [TestMethod]
@@ -72,10 +79,10 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.GetAll();
 
             // Assert
-            result.Should().HaveCount(3)
-                .And.Contain(x => x.Id == 1)
-                .And.Contain(x => x.Id == 105)
-                .And.Contain(x => x.Id == 115);
+            Assert.AreEqual(3, result.Count()); // Assuming there is already one workspace in the fixture
+            Assert.IsTrue(result.Any(x => x.Id == 1));
+            Assert.IsTrue(result.Any(x => x.Id == 105));
+            Assert.IsTrue(result.Any(x => x.Id == 115));
         }
 
         [TestMethod]
@@ -91,9 +98,11 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.Update(workspace);
 
             // Assert
-            result.Title.Should().Be("New Title");
+            Assert.AreEqual("New Title", result.Title);
+
             var persisted = await _fixture.Context.Workspaces.FindAsync(20);
-            persisted.Title.Should().Be("New Title");
+            Assert.IsNotNull(persisted);
+            Assert.AreEqual("New Title", persisted.Title);
         }
 
         [TestMethod]
@@ -108,9 +117,12 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var deleted = await _repository.Delete(30);
 
             // Assert
-            deleted.Should().BeEquivalentTo(workspace);
+            Assert.AreEqual(workspace.Id, deleted.Id);
+            Assert.AreEqual(workspace.Title, deleted.Title);
+            Assert.AreEqual(workspace.OrganizationId, deleted.OrganizationId);
+
             var exists = await _fixture.Context.Workspaces.FindAsync(30);
-            exists.Should().BeNull();
+            Assert.IsNull(exists);
         }
 
         [TestCleanup]
@@ -119,5 +131,4 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             _fixture.Dispose();
         }
     }
-
 }

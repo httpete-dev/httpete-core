@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using HttPete.Domain.Interfaces.Repositories;
 using HttPete.Infrastructure.IntegrationTests.Utils;
 using HttPete.Infrastructure.Persistence.SQLite.Repositories;
@@ -12,8 +11,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
 {
-
-
     [TestClass]
     public class CollectionRepositoryTests
     {
@@ -46,8 +43,8 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.GetWorkspaceCollections(workspaceId, CancellationToken.None);
 
             // Assert
-            result.Should().HaveCount(2)
-                .And.OnlyContain(x => x.WorkspaceId == workspaceId);
+            Assert.AreEqual(2, result.Count);
+            Assert.IsTrue(result.All(x => x.WorkspaceId == workspaceId));
         }
 
         [TestMethod]
@@ -60,9 +57,15 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.Add(collection);
 
             // Assert
-            result.Should().BeEquivalentTo(collection);
+            Assert.AreEqual(collection.Id, result.Id);
+            Assert.AreEqual(collection.Name, result.Name);
+            Assert.AreEqual(collection.WorkspaceId, result.WorkspaceId);
+
             var persisted = await _fixture.Context.Collections.FindAsync(10);
-            persisted.Should().NotBeNull();
+            Assert.IsNotNull(persisted);
+            Assert.AreEqual(collection.Id, persisted.Id);
+            Assert.AreEqual(collection.Name, persisted.Name);
+            Assert.AreEqual(collection.WorkspaceId, persisted.WorkspaceId);
         }
 
         [TestMethod]
@@ -78,9 +81,11 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.Update(collection);
 
             // Assert
-            result.Name.Should().Be("Updated Collection");
+            Assert.AreEqual("Updated Collection", result.Name);
+
             var persisted = await _fixture.Context.Collections.FindAsync(20);
-            persisted.Name.Should().Be("Updated Collection");
+            Assert.IsNotNull(persisted);
+            Assert.AreEqual("Updated Collection", persisted.Name);
         }
 
         [TestMethod]
@@ -95,9 +100,12 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var deleted = await _repository.Delete(30);
 
             // Assert
-            deleted.Should().BeEquivalentTo(collection);
+            Assert.AreEqual(collection.Id, deleted.Id);
+            Assert.AreEqual(collection.Name, deleted.Name);
+            Assert.AreEqual(collection.WorkspaceId, deleted.WorkspaceId);
+
             var exists = await _fixture.Context.Collections.FindAsync(30);
-            exists.Should().BeNull();
+            Assert.IsNull(exists);
         }
 
         [TestCleanup]
@@ -106,5 +114,4 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             _fixture.Dispose();
         }
     }
-
 }

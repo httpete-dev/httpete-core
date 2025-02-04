@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using HttPete.Infrastructure.IntegrationTests.Utils;
 using HttPete.Infrastructure.Persistence.SQLite.Repositories;
 using HttPete.Model.Tenants;
@@ -11,7 +10,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
 {
-
     [TestClass]
     [DoNotParallelize]
     public class BaseUrlRepositoryTests
@@ -45,8 +43,8 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.GetByWorkspaceIdAsync(workspaceId);
 
             // Assert
-            result.Should().HaveCount(2)
-                .And.OnlyContain(x => x.WorkspaceId == workspaceId);
+            Assert.AreEqual(2, result.Count());
+            Assert.IsTrue(result.All(x => x.WorkspaceId == workspaceId));
         }
 
         [TestMethod]
@@ -59,9 +57,15 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.Add(baseUrl);
 
             // Assert
-            result.Should().BeEquivalentTo(baseUrl);
+            Assert.AreEqual(baseUrl.Id, result.Id);
+            Assert.AreEqual(baseUrl.WorkspaceId, result.WorkspaceId);
+            Assert.AreEqual(baseUrl.Value, result.Value);
+
             var persisted = await _fixture.Context.BaseUrls.FindAsync(10);
-            persisted.Should().NotBeNull();
+            Assert.IsNotNull(persisted);
+            Assert.AreEqual(baseUrl.Id, persisted.Id);
+            Assert.AreEqual(baseUrl.WorkspaceId, persisted.WorkspaceId);
+            Assert.AreEqual(baseUrl.Value, persisted.Value);
         }
 
         [TestMethod]
@@ -77,9 +81,11 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var result = await _repository.Update(baseUrl);
 
             // Assert
-            result.Value.Should().Be("https://updatedurl.com");
+            Assert.AreEqual("https://updatedurl.com", result.Value);
+
             var persisted = await _fixture.Context.BaseUrls.FindAsync(20);
-            persisted.Value.Should().Be("https://updatedurl.com");
+            Assert.IsNotNull(persisted);
+            Assert.AreEqual("https://updatedurl.com", persisted.Value);
         }
 
         [TestMethod]
@@ -94,9 +100,12 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             var deleted = await _repository.Delete(30);
 
             // Assert
-            deleted.Should().BeEquivalentTo(baseUrl);
+            Assert.AreEqual(baseUrl.Id, deleted.Id);
+            Assert.AreEqual(baseUrl.WorkspaceId, deleted.WorkspaceId);
+            Assert.AreEqual(baseUrl.Value, deleted.Value);
+
             var exists = await _fixture.Context.BaseUrls.FindAsync(30);
-            exists.Should().BeNull();
+            Assert.IsNull(exists);
         }
 
         [TestCleanup]
@@ -105,5 +114,4 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite.Repositories
             _fixture.Dispose();
         }
     }
-
 }
