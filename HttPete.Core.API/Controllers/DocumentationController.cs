@@ -1,4 +1,5 @@
 ﻿using HttPete.Model.Tenants;
+using HttPete.Services.DTOs;
 using HttPete.Services.Network;
 using HttPete.Services.Services;
 using HttPete.Services.Services.Models;
@@ -103,9 +104,9 @@ namespace HttPete.Core.API.Controllers
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Created document</returns>
         [HttpPost]
-        [Route("")]
+        [Route("create")]
         public async Task<HttPeteResponse> CreateDocument(
-            [FromBody] Document document,
+            [FromBody] CreateDocumentDto document,
             CancellationToken cancellationToken = default)
         {
             try
@@ -134,9 +135,9 @@ namespace HttPete.Core.API.Controllers
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Updated document</returns>
         [HttpPut]
-        [Route("")]
+        [Route("update")]
         public async Task<HttPeteResponse> UpdateDocument(
-            [FromBody] Document document,
+            [FromBody] DocumentDto document,
             CancellationToken cancellationToken = default)
         {
             try

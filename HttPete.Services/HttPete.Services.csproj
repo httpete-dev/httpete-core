@@ -1,15 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>preview</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HttPete.Infrastructure\HttPete.Infrastructure.csproj" />
-    <ProjectReference Include="..\HttPete.Model\HttPete.Model.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Mapster" Version="7.4.0" />
+	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\HttPete.Infrastructure\HttPete.Infrastructure.csproj" />
+		<ProjectReference Include="..\HttPete.Model\HttPete.Model.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<InternalsVisibleTo Include="HttPete.Services.Tests" />
+		<InternalsVisibleTo Include="HttPete.Services.IntegrationTests" />
+	</ItemGroup>
 </Project>
