@@ -9,6 +9,7 @@ namespace HttPete.Infrastructure.IntegrationTests.SQLite
     public class HttPeteDbContextTests
     {
         private HttPeteDbContextFixture _fixture;
+
         [TestInitialize]
         public void TestInitialize()
         {
